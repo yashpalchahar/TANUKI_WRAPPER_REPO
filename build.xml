@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+
+<!-- apache-ant-1.9.1 -->
+
+<project default="build">
+	<property name="name" value="tanuki_helloworld" />
+	
+	<target name="clean">
+		<property name="output" value="target" />
+		
+		<delete dir="${output}" verbose="true" />
+		<delete dir="tanuki_temp" verbose="true" />
+		<delete dir="logs" verbose="true" />
+		<delete dir="bin">
+			<patternset  includes="*.hprof" />
+		</delete>
+		
+		<mkdir dir="${output}" />
+		<mkdir dir="tanuki_temp" />
+		<mkdir dir="logs" />
+		<mkdir dir="bin" />
+	</target>
+
+	<target name="build" depends="clean">
+		<property name="output" value="target" />
+
+		<javac srcdir="src\com\chahar" destdir="${output}" includeAntRuntime="true" />
+		
+		<!-- create jar from compiled class file-->
+		<jar destfile="bin/myjar.jar" basedir="${output}">
+			<manifest>
+				<attribute name="Main-Class" value="com.chahar.HelloWorld"/>
+			 </manifest>
+		</jar>
+	</target>
+
+	<!--
+	<target name="startserver" depends="build">
+		<exec dir="./bin" executable="cmd" >
+			<arg value="/C"/>
+			<arg value="helloworld.bat"/>
+		</exec>
+	</target>	
+	-->
+	
+</project>	
